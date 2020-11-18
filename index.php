@@ -3,6 +3,14 @@ $time = time();
 
 $config = include 'config/config.php';
 
+if(!function_exists('fnmatch')) {
+
+    function fnmatch($pattern, $string) {
+        return preg_match("#^".strtr(preg_quote($pattern, '#'), array('\*' => '.*', '\?' => '.'))."$#i", $string);
+    } // end
+
+} // end if
+
 if (USE_ACCESS_KEYS == true){
 	if (!isset($_GET['akey'], $config['access_keys']) || empty($config['access_keys'])){
 		die('Access Denied!');
